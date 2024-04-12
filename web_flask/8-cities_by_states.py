@@ -7,15 +7,15 @@ from models import storage
 app = Flask(__name__)
 
 
-@app.teardown_appcontext
-def teardown(exc):
-    storage.close()
-
-
 @app.route("/cities_by_states", strict_slashes=False)
 def cities_lists():
     states = storage.all("State")
     return render_template("8-cities_by_states.html", states=states)
+
+
+@app.teardown_appcontext
+def teardown(exc):
+    storage.close()
 
 
 if __name__ == '__main__':
